@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
@@ -45,7 +46,7 @@ export class MoviesController {
   // #STUDY: request, response가 json type으로 되어 있다.
   //          (express.js에서 body를 json으로 리턴하거나 하려면 설정해야 했음.)
   @Patch(':id')
-  patch(@Param('id') movieId: number, @Body() updateData){
+  patch(@Param('id') movieId: number, @Body() updateData: UpdateMovieDto){
     return this.moviesService.update(movieId, updateData);
   }
 
