@@ -7,34 +7,33 @@ import { Movie } from './entities/movie.entity';
 export class MoviesService {
   private movies: Movie[] = [];
 
-  
-  create(moviewData: CreateMovieDto){
+  create(moviewData: CreateMovieDto) {
     this.movies.push({
       id: this.movies.length + 1,
-      ...moviewData
-    })
+      ...moviewData,
+    });
   }
 
   getOne(id: number): Movie {
-    const movie = this.movies.find(movie => movie.id === id);
+    const movie = this.movies.find((movie) => movie.id === id);
     console.log(this.movies);
-    if(!movie){
+    if (!movie) {
       throw new NotFoundException(`Movie with ID ${id} not found.`);
     }
     return movie;
   }
 
-  getAll(): Movie[]{
+  getAll(): Movie[] {
     return this.movies;
   }
 
-  update(id: number, updateData: UpdateMovieDto){
+  update(id: number, updateData: UpdateMovieDto) {
     const movie = this.getOne(id);
     this.deleteOne(id);
     this.movies.push({ ...movie, ...updateData });
   }
 
   deleteOne(id: number) {
-    this.movies = this.movies.filter(movie => movie.id !== id);
+    this.movies = this.movies.filter((movie) => movie.id !== id);
   }
 }

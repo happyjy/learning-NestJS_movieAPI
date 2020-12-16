@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
@@ -8,7 +17,7 @@ import { MoviesService } from './movies.service';
 // express의 router
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService){}
+  constructor(private readonly moviesService: MoviesService) {}
 
   // #STUDY: decorator @Query
   //          ㄴ 다음 url에서 year=2000을 받는다. (url?year=2000)
@@ -17,11 +26,10 @@ export class MoviesController {
     return `We are searching for a movie made after: ${searchingYear}`;
   }
 
- 
-  // #STUDY: decorator @Body 
-  //          ㄴpost요청으로 Body로 보낸 data 받는 방법 
+  // #STUDY: decorator @Body
+  //          ㄴpost요청으로 Body로 보낸 data 받는 방법
   @Post()
-  create(@Body() movieData: CreateMovieDto){
+  create(@Body() movieData: CreateMovieDto) {
     return this.moviesService.create(movieData);
   }
 
@@ -29,7 +37,7 @@ export class MoviesController {
   // #STUDY: decorator @param
   //          ㄴ url로 보내는 param을 받는다.
   // #STUDY: decorator id: string
-  @Get(":id")
+  @Get(':id')
   getOne(@Param('id') movieId: number): Movie {
     console.log(`### id type is: ${typeof movieId}`);
     return this.moviesService.getOne(movieId);
@@ -46,18 +54,17 @@ export class MoviesController {
   // #STUDY: request, response가 json type으로 되어 있다.
   //          (express.js에서 body를 json으로 리턴하거나 하려면 설정해야 했음.)
   @Patch(':id')
-  patch(@Param('id') movieId: number, @Body() updateData: UpdateMovieDto){
+  patch(@Param('id') movieId: number, @Body() updateData: UpdateMovieDto) {
     return this.moviesService.update(movieId, updateData);
   }
 
   @Delete(':id')
-  remove(@Param('id') movieId: number){
-    return this.moviesService.deleteOne(movieId); 
+  remove(@Param('id') movieId: number) {
+    return this.moviesService.deleteOne(movieId);
   }
 
-
   @Get('test')
-  test(){
+  test() {
     console.log(`test url: ${arguments[0]}`);
     return 'hi';
   }
