@@ -39,7 +39,7 @@ export class MoviesController {
   // #STUDY: decorator id: string
   @Get(':id')
   getOne(@Param('id') movieId: number): Movie {
-    console.log(`### id type is: ${typeof movieId}`);
+    console.log(`### getOne => id type is: ${typeof movieId}`);
     return this.moviesService.getOne(movieId);
   }
 

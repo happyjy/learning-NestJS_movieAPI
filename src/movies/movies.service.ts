@@ -15,6 +15,7 @@ export class MoviesService {
   }
 
   getOne(id: number): Movie {
+    console.log(`### getOne => id type is: ${typeof id}`);
     const movie = this.movies.find((movie) => movie.id === id);
     // console.log(this.movies);
     if (!movie) {
